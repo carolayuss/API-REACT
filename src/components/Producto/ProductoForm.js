@@ -64,7 +64,7 @@ const ProductoForm = ({ onSubmit, productoInicial }) => {
   console.log("Valor de imagen:", producto.imagen);
   return (
    <form onSubmit={handleSubmit} className="card p-3 shadow">
-  <h2 className="card-title text-center">{producto.id_producto ? "Editar" : "Crear"} Producto</h2>
+  <h2 className="card-title text-center text-info">{producto.id_producto ? "Editar" : "Crear"} Producto</h2>
 
   <input
     name="nombre"
@@ -129,7 +129,7 @@ const ProductoForm = ({ onSubmit, productoInicial }) => {
     <option value={60}>Decoraciones</option>
   </select>
 
-  <button type="submit" className="btn btn-success w-100">
+  <button type="submit" className="btn btn-outline-info w-100">
     {producto.id_producto ? "Actualizar" : "Crear"}
   </button>
 </form>

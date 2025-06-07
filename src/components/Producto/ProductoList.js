@@ -2,63 +2,47 @@ import React from "react";
 
 const ProductoList = ({ productos, onDelete, onEdit }) => {
   return (
-    <div className="card shadow p-3">
-      <h2 className="card-title text-center">Lista de Productos</h2>
-      <ul className="list-group">
-        {productos.map((producto) => (
-          <li
-            key={producto.id_producto}
-            className="list-group-item d-flex align-items-center justify-content-between"
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              {producto.imagen && (
-                <img
-                  src={`http://localhost:8080/uploads/${producto.imagen}`}
-                  alt={producto.nombre}
-                  style={{
-                    width: "60px",
-                    height: "60px",
-                    objectFit: "cover",
-                    borderRadius: "5px",
-                  }}
-                />
-              )}
-              <div>
-                <strong>{producto.nombre}</strong>
-                <br />
-                <p
-                  className="text-muted mb-1"
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    maxHeight: "3.6em",
-                  }}
-                >
-                  {producto.descripcion}
-                </p>
-                ${producto.precio} - Stock: {producto.stock}
-              </div>
+    <div className="row">
+      {productos.map((producto) => (
+        <div key={producto.id_producto} className="col-md-4 mb-4">
+          <div className="card h-100 shadow">
+            {producto.imagen && (
+              <img
+                src={`http://localhost:8080/uploads/${producto.imagen}`}
+                alt={producto.nombre}
+                className="card-img-top mx-auto d-block"
+                style={{
+                  maxWidth: "120px",
+                  maxHeight: "120px",
+                  objectFit: "contain",
+                  paddingTop: "10px",
+                }}
+              />
+            )}
+            <div className="card-body">
+              <h5 className="card-title">{producto.nombre}</h5>
+              <p className="card-text text-muted">{producto.descripcion}</p>
+              <p>
+                <strong>${producto.precio}</strong> | Stock: {producto.stock}
+              </p>
             </div>
-            <div className="d-flex flex-column align-items-end justify-content-center">
+            <div className="card-footer d-flex justify-content-between">
               <button
                 onClick={() => onEdit(producto)}
-                className="btn btn-warning btn-sm mb-2"
+                className="btn btn-sm btn-outline-info"
               >
                 Editar
               </button>
               <button
                 onClick={() => onDelete(producto.id_producto)}
-                className="btn btn-danger btn-sm"
+                className="btn btn-sm btn-outline-warning"
               >
                 Eliminar
               </button>
             </div>
-          </li>
-        ))}
-      </ul>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
