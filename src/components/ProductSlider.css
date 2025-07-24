@@ -1,0 +1,108 @@
+.slider-container {
+  position: relative;
+  width: 90%;
+  margin: 40px auto;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;      
+  scroll-behavior: smooth;
+  gap: 24px;              
+  padding: 10px;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;          
+}
+
+.slider-image {
+  height: 350px;
+  width: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.slider-info {
+  margin-top: 10px;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+}
+
+.nombre {
+  font-size: 16px;
+  font-weight: bold;
+  color: hsl(172, 45%, 45%); 
+}
+
+.descripcion {
+  font-size: 16px;
+  color: hsl(172, 34%, 48%); 
+}
+
+.precio {
+  font-size: 16px;
+  color: hsl(141, 10%, 33%);
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(271, 27%, 55%);
+  border: none;
+  color: rgb(8, 8, 8);
+  font-size: 30px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.slider-button.left {
+  left: 10px;
+}
+
+.slider-button.right {
+  right: 10px;
+}
+
+.slider-button:hover {
+  background-color: rgba(104, 63, 143, 0.6);
+}
+
+.add-to-cart {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: hsl(271, 27%, 69%);
+  color: #e7bdfa;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: hsl(271, 27%, 55%);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: hsl(184, 69%, 38%);
+  font-style: italic;
+  font-family: 'Great Vibes', cursive;
+}
+.collar-image {
+  max-height: 220px;
+}
+
+.collar-image {
+  max-height: 920px;
+}

@@ -1,0 +1,51 @@
+
+.heart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 2rem;
+  background-color: #dfcbf0;
+  border-radius: 12px;
+}
+
+.heart-image {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.heart-right h2 {
+  color: #aa95bd;
+}
+
+
+.heart-text {
+    color: hsl(175, 89%, 43%);
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.6rem;
+     text-align: center; 
+     width: 50%; 
+}
+
+.style {
+  color: brown;
+}
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background-color: hsl(175, 57%, 83%);
+  color: hsl(184, 69%, 38%);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+}
+
+.scroll-to-top:hover {
+  background-color: hsl(175, 89%, 43%);
+}

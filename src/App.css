@@ -1,1 +1,7 @@
-
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #be68f8, #e6d9e6, #ddc6e6);
+  background-attachment: fixed;
+  font-family: sans-serif;
+}
