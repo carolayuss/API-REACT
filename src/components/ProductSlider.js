@@ -28,12 +28,17 @@ const ProductSlider = ({ images }) => {
                 alt={item.nombre} 
                 className={`slider-image ${item.clase || ""}`} 
             />
-            <div className="slider-info">
-              <p className="nombre">{item.nombre}</p>
-              <p className="descripcion">{item.descripcion}</p>
-              <p className="stock">{item.stock}</p>
-              <p className="precio">{item.precio}</p>
-              <a href="pedido" className="add-to-cart" title="Carrito">🛒 Añadir</a>
+              <div className="slider-info">
+              {item.nombre && <p className="nombre">{item.nombre}</p>}
+              {item.descripcion && <p className="descripcion">{item.descripcion}</p>}
+              {item.stock && <p className="stock">{item.stock}</p>}
+              {item.precio && <p className="precio">{item.precio}</p>}
+              
+              {item.carrito && (
+                <a href="pedido" className="add-to-cart" title="Carrito">
+                  🛒 Añadir
+                </a>
+              )}
             </div>
           </div>
         ))}

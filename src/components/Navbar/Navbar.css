@@ -54,7 +54,7 @@
 
 .dropdown-menu {
   position: absolute;
-  background: white;
+  background: rgb(214, 94, 94);
   border: 1px solid #ccc;
   padding: 10px;
   list-style: none;
