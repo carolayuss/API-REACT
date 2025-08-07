@@ -105,7 +105,7 @@
 
 .navbar-search input {
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #700e0e;
   border-radius: 4px;
 }
 
@@ -133,6 +133,7 @@
 
   .navbar-center.open {
     display: flex;
+    color: #0b5214;
   }
 
   .navbar-links {

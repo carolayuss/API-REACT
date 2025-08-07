@@ -1,56 +1,72 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './Login.css'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.css'; // crea el estilo si deseas
 
-const Login = () => {
+function Login() {
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      navigate('/Home'); // Redirige a la página de inicio
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     try {
-      const response = await axios.post('http://localhost:8080/api/clientes/login', {
-        email,
-        contrasena
+      const response = await fetch('http://localhost:8080/api/clientes/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, contrasena }),
       });
 
-      const cliente = response.data;
-      alert(`Bienvenido, ${cliente.nombre}!`);
+      if (!response.ok) {
+        throw new Error('Credenciales incorrectas');
+      }
 
-    } catch (err) {
-      console.error("Error al iniciar sesión:", err.response?.data || err.message);
-      setError("Email o contraseña incorrectos");
+      const data = await response.json();
+      console.log('Login exitoso:', data);
+
+      // Guarda el usuario (si es necesario)
+      localStorage.setItem('usuario', JSON.stringify(data));
+
+      // Redirige a la página de inicio
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      alert('Correo o contraseña incorrecta');
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Ingresar</h2>
-      <form onSubmit={handleSubmit}>
+      <h2>Iniciar sesión</h2>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Correo electrónico"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="password"
           placeholder="Contraseña"
           value={contrasena}
-          onChange={e => setContrasena(e.target.value)}
+          onChange={(e) => setContrasena(e.target.value)}
           required
         />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
         <button type="submit">Ingresar</button>
       </form>
     </div>
   );
-};
+}
 
 export default Login;
+
 
 

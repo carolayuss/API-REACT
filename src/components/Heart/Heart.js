@@ -1,6 +1,6 @@
 import React from 'react';
 import './Heart.css';
-import ProductSlider from "../ProductSlider";
+import ProductSlider from "./ProductSlider";
 
 
 const decoracionesImages = [
