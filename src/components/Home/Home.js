@@ -1,30 +1,37 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import { useNavigate } from 'react-router-dom';
+import Heart from '../Heart/Heart';
+import Carrito from '../Carrito/Carrito';
 
-export function Home() {
+function Home() {
   const { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    if (!user) navigate('/login');
-  }, [user, navigate]);
-
-  const logout = () => {
+  const handleAddToCart = (product) => { /* tu lógica */ };
+  const handleRemoveFromCart = (productId) => { /* tu lógica */ };
+  const handleLogout = () => {
     setUser(null);
-    navigate('/login');
+    localStorage.removeItem('user');
   };
 
-  if (!user) return null;
-
   return (
-    <div>
-      <h2>Bienvenida, {user.nombre}!</h2>
-      <button onClick={logout}>Cerrar sesión</button>
-      {/* Aquí luego vendrá el carrito, etc. */}
+    <div className="home-container">
+      <div className="home-header">
+        <h1>Bienvenid@, {user?.nombre}</h1>
+        <div className="home-actions">
+          <button onClick={handleLogout}>Cerrar sesión</button>
+          <button onClick={() => {/* lógica seguir pedido */}}>Seguir pedido</button>
+        </div>
+      </div>
+      <Heart onAddToCart={handleAddToCart} />
+      {user && (
+        <Carrito cart={cart} onRemove={handleRemoveFromCart} />
+      )}
     </div>
   );
 }
 
 export default Home;
+
+
 

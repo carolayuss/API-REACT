@@ -10,7 +10,7 @@ import Home from './components/Home/Home';
 import './App.css'
 
 
-function App() {
+function App() {  
   return (
     <UserProvider>
       <Navbar />
@@ -20,8 +20,7 @@ function App() {
         <Route path="/registro" element={<Registro />} />
         <Route path="/home" element={<Home />} />
       </Routes>
-     
-      </UserProvider>
+     </UserProvider>
   );
 }
 
