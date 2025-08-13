@@ -1,72 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import AuthService from '../../services/AuthService';
+import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // crea el estilo si deseas
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
+  const [error, setError] = useState('');
+  const { setUser } = useContext(UserContext);  // <-- Aquí es donde falla si no hay provider
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const usuarioGuardado = localStorage.getItem('usuario');
-    if (usuarioGuardado) {
-      navigate('/Home'); // Redirige a la página de inicio
-    }
-  }, [navigate]);
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch('http://localhost:8080/api/clientes/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, contrasena }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Credenciales incorrectas');
-      }
-
-      const data = await response.json();
-      console.log('Login exitoso:', data);
-
-      // Guarda el usuario (si es necesario)
-      localStorage.setItem('usuario', JSON.stringify(data));
-
-      // Redirige a la página de inicio
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-      alert('Correo o contraseña incorrecta');
+      const response = await AuthService.login(email, contrasena);
+      setUser(response.data); // Esto debería funcionar correctamente
+      navigate('/home');
+    } catch (err) {
+      setError(err.response?.data || 'Error en login');
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Iniciar sesión</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          required
-        />
-        <button type="submit">Ingresar</button>
-      </form>
+    <div className="login-wrapper">
+      {/* Formulario */}
     </div>
   );
 }
 
 export default Login;
+
 
 
 

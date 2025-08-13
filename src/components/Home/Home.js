@@ -1,50 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-  const [productos, setProductos] = useState([]);
-  const [usuario, setUsuario] = useState(null);
+export function Home() {
+  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Cargar productos
-    fetch('http://localhost:8080/api/productos')
-      .then(res => res.json())
-      .then(data => setProductos(data));
+    if (!user) navigate('/login');
+  }, [user, navigate]);
 
-    // Ver si hay usuario logueado
-    const user = localStorage.getItem('usuario');
-    if (user) {
-      setUsuario(JSON.parse(user));
-    }
-  }, []);
-
-  const handleAddToCart = (producto) => {
-    // Aquí agregas lógica para añadir al carrito (localStorage, backend, etc.)
-    console.log(`Producto añadido al carrito: ${producto.nombre}`);
-    alert(`"${producto.nombre}" añadido al carrito`);
+  const logout = () => {
+    setUser(null);
+    navigate('/login');
   };
 
-  return (
-    <div className="home-container">
-      <h1>Bienvenido a nuestra tienda</h1>
-      <div className="productos-grid">
-        {productos.map(producto => (
-          <div className="producto-card" key={producto.id}>
-            <img src={producto.imagen} alt={producto.nombre} />
-            <h3>{producto.nombre}</h3>
-            <p>{producto.descripcion}</p>
-            <p>Precio: ${producto.precio}</p>
+  if (!user) return null;
 
-            {usuario && (
-              <button onClick={() => handleAddToCart(producto)}>
-                Añadir al carrito
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
+  return (
+    <div>
+      <h2>Bienvenida, {user.nombre}!</h2>
+      <button onClick={logout}>Cerrar sesión</button>
+      {/* Aquí luego vendrá el carrito, etc. */}
     </div>
   );
-};
+}
 
 export default Home;
 
