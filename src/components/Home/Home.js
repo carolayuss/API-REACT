@@ -27,7 +27,7 @@ function Home() {
     localStorage.removeItem('user');
     navigate('/', { replace: true });
   };
-
+//para verificar la funcionalidad del carrito
   const handleAddToCart = (product) => {
     console.log('¡Se hizo clic en Añadir al carrito!', product);
     if (!user) {

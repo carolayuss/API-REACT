@@ -1,4 +1,3 @@
-// userContext.js
 import React, { createContext, useState } from 'react';
 import { useEffect } from 'react';
 

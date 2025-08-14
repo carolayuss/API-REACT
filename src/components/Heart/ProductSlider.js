@@ -39,7 +39,8 @@ const ProductSlider = ({ images, onAddToCart }) => {
               {item.stock && <p className="stock">{item.stock}</p>}
               {item.precio && <p className="precio">{item.precio}</p>}
               {item.nombre && item.precio && onAddToCart && (
-                <button
+               //desde aca puedo modificar el array que tiene las categorias para que no le aparezca el carrito
+               <button
                   className="add-to-cart-button"
                   onClick={() => {
                     onAddToCart(item);

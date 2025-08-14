@@ -18,14 +18,14 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail">
-      {/* Mostrar nombre del usuario */}
+      {/*nombre del usuario*/}
       {user && (
         <div className="user-info">
           <p>Usuario: <strong>{user.nombre}</strong></p>
         </div>
       )}
 
-      {/* Botón para volver al home */}
+      {/* volver al home */}
       <button className="back-button" onClick={() => navigate('/home')}>
         ⬅ Volver al inicio
       </button>

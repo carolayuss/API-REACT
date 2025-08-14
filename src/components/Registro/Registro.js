@@ -42,11 +42,11 @@ const esContrasenaSegura = (contrasena) => {
   return;
 }
 
-    // Si quieres puedes obtener la respuesta en JSON
+    
     const data = await response.json();
     console.log('Usuario creado:', data);
 
-    // Aquí rediriges a la página inicio
+    //página inicio
     navigate('/');
 
   } catch (error) {

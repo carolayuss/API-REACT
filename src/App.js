@@ -7,7 +7,7 @@ import Login from './components/Login/Login';
 import Footer from './components/Footer/Footer';
 import Registro from './components/Registro/Registro';
 import Home from './components/Home/Home';
-//import { CartProvider } from './context/CartContext';
+//import { CartProvider } from './context/CartContext'; los dejo comentados porque no entendi muy bien para que sirve
 import ProductDetail from './components/ProductDetail/ProductDetail';
 import './App.css'
 
