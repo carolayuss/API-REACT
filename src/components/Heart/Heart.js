@@ -333,10 +333,10 @@ const bienvenidaImages = [
 const Heart = ({ onAddToCart }) => {
   return (
     <div>
-    <h3 id="mochilas" className="section-title">Bisuteria Artesanal y Decoraciones</h3>
+    <h3 id="varios" className="section-title">Bisuteria Artesanal y Decoraciones</h3>
 <ProductSlider images={bienvenidaImages} onAddToCart={onAddToCart} />
 
-      <h3 id="mochilas" className="section-title">BOLSOS Y MOCHILAS</h3>
+      <h3 id="morrales" className="section-title">BOLSOS Y MOCHILAS</h3>
 <ProductSlider images={morralesImages} onAddToCart={onAddToCart} />
 
 <h3 id="collares" className="section-title">BISUTERIA COLLARES</h3>
@@ -348,10 +348,10 @@ const Heart = ({ onAddToCart }) => {
 <h3 id="pulseras" className="section-title">PULSERAS</h3>
 <ProductSlider images={pulseraImages} onAddToCart={onAddToCart} />
 
-<h3 id="pulseras_masculinas" className="section-title">PULSERAS MASCULINAS</h3>
+<h3 id="pulsera masculina" className="section-title">PULSERAS MASCULINAS</h3>
 <ProductSlider images={masculinaImages} onAddToCart={onAddToCart} />
 
-<h3 id="decoraciones" className="section-title">DECORACIONES Y MÁS</h3>
+<h3 id="decoración" className="section-title">DECORACIONES Y MÁS</h3>
 <ProductSlider images={decoracionesImages} onAddToCart={onAddToCart} />
 <br/>
 <button className="scroll-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo.PNG';
-import './Navbar.css';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.PNG";
+import "./Navbar.css";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,20 +10,20 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/categoria')
-      .then(res => res.json())
-      .then(data => {
+    fetch("http://localhost:8080/api/categoria")
+      .then((res) => res.json())
+      .then((data) => {
         setCategorias(Array.isArray(data) ? data : []);
       })
-      .catch(err => console.error("Error cargando categorías:", err));
+      .catch((err) => console.error("Error cargando categorías:", err));
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('usuario');
-    navigate('/'); // Redirige al inicio tras cerrar sesión
+    localStorage.removeItem("usuario");
+    navigate("/"); // Redirige al inicio tras cerrar sesión
   };
 
-  return (
+ return (
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/">
@@ -31,30 +31,32 @@ export const Navbar = () => {
         </Link>
       </div>
 
-      <div className={`navbar-center ${menuOpen ? 'open' : ''}`}>
+      <div className={`navbar-center ${menuOpen ? "open" : ""}`}>
         <ul className="navbar-links">
-          <li><Link to="/">Inicio</Link></li>
-          <li><Link to="/login">Ingresar</Link></li>
-          <li><Link to="/registro">REGÍSTRATE</Link></li>
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to="/login">Ingresar</Link>
+          </li>
+          <li>
+            <Link to="/registro">REGÍSTRATE</Link>
+          </li>
           <li className="dropdown">
             <button onClick={() => setDropdownOpen(!dropdownOpen)}>
               CATEGORÍAS ⌄
             </button>
             {dropdownOpen && (
               <ul className="dropdown-menu">
-                {categorias.map(cat => (
+                {categorias.map((cat) => (
                   <li key={cat.id_categoria}>
-                    <button
-                      onClick={() => {
-                        const el = document.getElementById(cat.nombre.toLowerCase().replace(/\s+/g, '-'));
-                        if (el) {
-                          el.scrollIntoView({ behavior: 'smooth' });
-                          setDropdownOpen(false);
-                        }
-                      }}
+                    <a
+                      href={`#${cat.nombre.toLowerCase().replace(/\s+/g, "-")}`}
+                      onClick={() => setDropdownOpen(false)}
+                      className="dropdown-item"
                     >
                       {cat.nombre}
-                    </button>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -64,21 +66,23 @@ export const Navbar = () => {
       </div>
 
       <div className="navbar-icons">
-        {localStorage.getItem('usuario') ? (
+        {localStorage.getItem("usuario") ? (
           <ul>
-            <li><span>Bienvenido, {JSON.parse(localStorage.getItem('usuario')).nombre}</span></li>
-            <li><Link to="/seguir-pedido">SEGUIR PEDIDO</Link></li>
-            <li><button onClick={handleLogout}>Cerrar sesión</button></li>
+            <li>
+              <span>
+                Bienvenido, {JSON.parse(localStorage.getItem("usuario")).nombre}
+              </span>
+            </li>
+            <li>
+              <Link to="/seguir-pedido">SEGUIR PEDIDO</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Cerrar sesión</button>
+            </li>
           </ul>
         ) : null}
       </div>
     </nav>
   );
 };
-
-
-
-
-
-
 
