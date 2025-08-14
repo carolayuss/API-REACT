@@ -1,90 +1,81 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import Heart from '../Heart/Heart';
 import Carrito from '../Carrito/Carrito';
-
 
 function Home() {
   const { user, setUser } = useContext(UserContext);
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
-  // Cargar carrito al entrar
   useEffect(() => {
     if (user) {
-      const userId = user.id || user.nombre; // si no tienes ID, usa nombre
-      const storedCart = JSON.parse(localStorage.getItem(`cart-${userId}`)) || [];
-      setCart(storedCart);
+      const stored = JSON.parse(localStorage.getItem(`cart-${user.nombre}`)) || [];
+      setCart(stored);
     }
   }, [user]);
 
-  // Guardar carrito cada vez que cambie
   useEffect(() => {
     if (user) {
-      const userId = user.id || user.nombre;
-      localStorage.setItem(`cart-${userId}`, JSON.stringify(cart));
+      localStorage.setItem(`cart-${user.nombre}`, JSON.stringify(cart));
     }
   }, [cart, user]);
 
-  // Cerrar sesión
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('user');
     navigate('/', { replace: true });
   };
 
-  // Agregar producto al carrito
- const handleAddToCart = (product) => {
-  console.log("¡Se hizo clic en Añadir al carrito!", product);
+  const handleAddToCart = (product) => {
+    console.log('¡Se hizo clic en Añadir al carrito!', product);
+    if (!user) {
+      alert('Por favor inicia sesión para agregar al carrito.');
+      return;
+    }
 
-  if (!user) {
-    alert("Debes iniciar sesión para agregar productos al carrito.");
-    return;
-  }
+    const productWithId = { ...product, id: product.nombre };
 
-  const productWithId = {
-    ...product,
-    id: product.nombre, // usar nombre como identificador temporal
-  };
     setCart(prev => {
-      const exists = prev.find(item => item.nombre === product.nombre);
-      if (exists) {
-        return prev.map(item =>
-          item.nombre === product.nombre
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
+  const existing = prev.find(item => item.nombre === product.nombre);
+  if (existing) {
+    const updated = prev.map(item =>
+      item.nombre === product.nombre
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    console.log("Actualizando cantidad en el carrito:", updated);
+    return updated;
+  } else {
+    const updated = [...prev, { ...product, quantity: 1 }];
+    console.log("Agregando nuevo producto al carrito:", updated);
+    return updated;
+  }
+});
   };
 
-  // Eliminar del carrito
-  const handleRemoveFromCart = (productNombre) => {
-    setCart(prev => prev.filter(item => item.nombre !== productNombre));
+  const handleRemoveFromCart = (id) => {
+    setCart(prev => prev.filter(item => item.id !== id));
   };
 
   return (
     <div className="home-container">
       <div className="home-header">
         <h1>Bienvenid@, {user?.nombre}</h1>
-        <div className="home-actions">
-          <button onClick={handleLogout}>Cerrar sesión</button>
-          <button onClick={() => navigate('/seguir-pedido')}>Seguir pedido</button>
-        </div>
+        <button onClick={handleLogout}>Cerrar sesión</button>
       </div>
-
-      {/* Componente Heart recibe función para añadir */}
       <Heart onAddToCart={handleAddToCart} />
-
-      {/* Mostrar carrito solo si hay usuario */}
-      {user && <Carrito cart={cart} onRemove={handleRemoveFromCart} />}
+      {user && (
+        <Carrito cart={cart} onRemove={handleRemoveFromCart} />
+      )}
+      
     </div>
   );
 }
 
 export default Home;
+
 
 
 

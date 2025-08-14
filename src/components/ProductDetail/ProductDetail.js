@@ -1,10 +1,15 @@
 // src/components/ProductDetail/ProductDetail.js
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import './ProductDetail.css'; // crea estilos si necesitas
+// src/components/ProductDetail/ProductDetail.js
+import React, { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+import './ProductDetail.css';
 
 const ProductDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+
   const producto = location.state?.producto;
 
   if (!producto) {
@@ -13,6 +18,19 @@ const ProductDetail = () => {
 
   return (
     <div className="product-detail">
+      {/* Mostrar nombre del usuario */}
+      {user && (
+        <div className="user-info">
+          <p>Usuario: <strong>{user.nombre}</strong></p>
+        </div>
+      )}
+
+      {/* Botón para volver al home */}
+      <button className="back-button" onClick={() => navigate('/home')}>
+        ⬅ Volver al inicio
+      </button>
+
+      {/* Detalle del producto */}
       <h2>{producto.nombre}</h2>
       <img src={producto.url} alt={producto.nombre} />
       <p><strong>Descripción:</strong> {producto.descripcion}</p>
@@ -23,3 +41,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+

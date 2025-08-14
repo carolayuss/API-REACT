@@ -5,8 +5,8 @@ import { UserContext } from "../../context/UserContext";
 import "./ProductSlider.css";
 
 const ProductSlider = ({ images, onAddToCart }) => {
-   const navigate = useNavigate();
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
   const scrollLeft = () => {
@@ -38,18 +38,18 @@ const ProductSlider = ({ images, onAddToCart }) => {
               )}
               {item.stock && <p className="stock">{item.stock}</p>}
               {item.precio && <p className="precio">{item.precio}</p>}
+              {item.nombre && item.precio && onAddToCart && (
+                <button
+                  className="add-to-cart-button"
+                  onClick={() => {
+                    onAddToCart(item);
+                    navigate('/detalle-producto', { state: { producto: item } });
+                  }}
+                >
+                  🛒 Añadir al carrito
+                </button>
+              )}
             </div>
-          {onAddToCart && (
-  <button
-    className="add-to-cart-button"
-    onClick={() => {
-      onAddToCart(item);
-      navigate('/detalle-producto', { state: { producto: item } });
-    }}
-  >
-    🛒 Añadir al carrito
-  </button>
-)}
           </div>
         ))}
       </div>
