@@ -1,4 +1,6 @@
-import React from 'react'
+
+
+    import React from 'react'
 
 function Carrito({ cart, onRemove }) {
   return (
@@ -7,13 +9,14 @@ function Carrito({ cart, onRemove }) {
       {cart.length === 0
         ? <p>Tu carrito está vacío</p>
         : cart.map(item => (
-            <div key={item.id} className="cart-item">
-              <span>{item.name} x {item.quantity}</span>
-              <button onClick={() => onRemove(item.id)}>Eliminar</button>
+            <div key={item.nombre} className="cart-item">
+              <span>{item.nombre} x {item.quantity}</span>
+              <button onClick={() => onRemove(item.nombre)}>Eliminar</button>
             </div>
           ))}
     </div>
   );
 }
+
 
 export default Carrito

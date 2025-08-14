@@ -1,21 +1,20 @@
-import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './ProductSlider.css';
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+import "./ProductSlider.css";
 
-const ProductSlider = ({ images }) => {
+const ProductSlider = ({ images, onAddToCart }) => {
+   const navigate = useNavigate();
   const sliderRef = useRef(null);
-  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const scrollLeft = () => {
-    sliderRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    sliderRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-  };
-
-  const handleAddToCartClick = () => {
-    navigate('/login');
+    sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
   };
 
   return (
@@ -30,23 +29,27 @@ const ProductSlider = ({ images }) => {
             <img
               src={item.url}
               alt={item.nombre}
-              className={`slider-image ${item.clase || ''}`}
+              className={`slider-image ${item.clase || ""}`}
             />
             <div className="slider-info">
               {item.nombre && <p className="nombre">{item.nombre}</p>}
-              {item.descripcion && <p className="descripcion">{item.descripcion}</p>}
+              {item.descripcion && (
+                <p className="descripcion">{item.descripcion}</p>
+              )}
               {item.stock && <p className="stock">{item.stock}</p>}
               {item.precio && <p className="precio">{item.precio}</p>}
-              {item.carrito && (
-                <button
-                  className="add-to-cart"
-                  title="Carrito"
-                  onClick={handleAddToCartClick}
-                >
-                  🛒 Añadir
-                </button>
-              )}
             </div>
+          {onAddToCart && (
+  <button
+    className="add-to-cart-button"
+    onClick={() => {
+      onAddToCart(item);
+      navigate('/detalle-producto', { state: { producto: item } });
+    }}
+  >
+    🛒 Añadir al carrito
+  </button>
+)}
           </div>
         ))}
       </div>
@@ -59,5 +62,3 @@ const ProductSlider = ({ images }) => {
 };
 
 export default ProductSlider;
-
-
